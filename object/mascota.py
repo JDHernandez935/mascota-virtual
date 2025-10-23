@@ -5,9 +5,10 @@ class Mascota:
     #Creamos nuestro constructor para la mascota, definiendo sus estados bases
     def __init__(self):
         self.nombre = ""
+        self.nombrar_mascota()
         self.energia = 100
         self.comida = 100
-        self.animo = 100
+        self.animo = 0
     
     #Se crea el metodo para nombrar a la mascota
     def nombrar_mascota(self):
@@ -21,22 +22,33 @@ class Mascota:
     #Creamos nuestro metodo de alimentar
     def alimentar(self):
         #Establecemos el limite de mis estados de comida y energia para no sobrepar los estados establecidos
-        self.energia = min(self.energia + 20, 100)
-        self.comida = min(self.comida + 20, 100)
-        return f"{self.nombre} ya comio 🥩, esta satisfecho y con nuevas energias"
+        if self.comida == 100 or self.energia == 100:
+            return f"{self.nombre} no quiere comer más 😒, tiene la panza llena o tiene mucha energia."
+        else:
+            self.energia = min(self.energia + 20, 100)
+            self.comida = min(self.comida + 20, 100)
+            return f"{self.nombre} comió 🥩 y está feliz!"
     
     #Del mismo modo, realizaremos nuestros demas metodos
     def descansar(self):
-        self.energia = min(self.energia + 10, 100)
-        self.comida = max(self.comida - 10, 0)
-        self.animo = max(self.animo - 30, 0)
-        return f"{self.nombre} descanso 🛌, esta listo para jugar!"
-    
+        if self.energia == 100:
+            return f"{self.nombre} tiene mucha energia! 😐, no puede normir!."
+        else:
+            self.energia = min(self.energia + 20, 100)
+            self.comida = max(self.comida - 10, 0)
+            self.animo = min(self.animo + 5, 100)
+            return f"{self.nombre} descansó 🛌 y se siente mejor."
+            
     def jugar(self):
-        self.energia = max(self.energia - 30, 0)
-        self.comida = max(self.comida - 30, 0)
-        self.animo = min(self.animo + 30, 100)
-        return f"{self.nombre} se ha divertido muchisimo 😀!!"
+        if self.energia < 20 or self.comida < 20:
+            self.animo = max(self.animo - 10, 0)
+            return f"{self.nombre} está demasiado cansado o hambriento 😩 para jugar."
+        else:
+            self.energia = max(self.energia - 30, 0)
+            self.comida = max(self.comida - 20, 0)
+            self.animo = min(self.animo + 30, 100)
+            return f"{self.nombre} jugó 🎾 y está feliz!"
+
     
     #Creamos nuestro metodo para crear las barras, a dicho metodo le pasaremos nuestros puntos de estado junto
     #con el largo que queremos que tenga nuestro barra

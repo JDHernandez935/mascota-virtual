@@ -9,8 +9,6 @@ class Menu:
     #Creamos un constructor para "inyectar" nuestro objeto
     def __init__(self):
         self.mascota = Mascota()
-        if not self.mascota.nombre:
-            self.mascota.nombrar_mascota()
     
     #Establecemos nuestro metodo para limpiar la terminal
     def limpiar_pantalla(self):
